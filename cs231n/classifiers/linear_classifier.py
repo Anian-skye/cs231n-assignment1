@@ -50,6 +50,9 @@ class LinearClassifier(object):
       # replacement is faster than sampling without replacement.              #
       #########################################################################
       pass
+      indices = np.random.choice(range(0,num_train),batch_size)
+      X_batch = X[indices]
+      y_batch = y[indices] 
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -64,6 +67,7 @@ class LinearClassifier(object):
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
       pass
+      self.W -= learning_rate*grad
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -92,6 +96,8 @@ class LinearClassifier(object):
     # Implement this method. Store the predicted labels in y_pred.            #
     ###########################################################################
     pass
+    y_pred = np.argmax(X.dot(self.W),axis=1)
+    
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
@@ -107,13 +113,13 @@ class LinearClassifier(object):
       data points; each point has dimension D.
     - y_batch: A numpy array of shape (N,) containing labels for the minibatch.
     - reg: (float) regularization strength.
-
+    
     Returns: A tuple containing:
     - loss as a single float
     - gradient with respect to self.W; an array of the same shape as W
     """
     pass
-
+    return svm_loss_vectorized(self.W,X_batch,y_batch,reg)
 
 class LinearSVM(LinearClassifier):
   """ A subclass that uses the Multiclass SVM loss function """
